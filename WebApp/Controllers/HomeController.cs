@@ -2,7 +2,9 @@
 using Core.Interfaces;
 using InfraStructure.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using WebApp.ViewModels;
 
 namespace Web.Controllers
 {
@@ -18,7 +20,13 @@ namespace Web.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var homeViewModel = new HomeViewModel
+            {
+                Owner = _owner.Entity.GetAll().First(),
+                PortfolioItems = _portfolio.Entity.GetAll().ToList()
+            };
+            return View(homeViewModel);
+            
         }
     }
 }

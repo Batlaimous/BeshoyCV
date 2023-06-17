@@ -1,4 +1,6 @@
+using Core.Interfaces;
 using InfraStructure;
+using InfraStructure.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +33,7 @@ namespace WebApp
             {
                 options.UseSqlServer(configuration.GetConnectionString("MyPortfolioDB"));
             });
+            services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
             services.AddRazorPages();
         }
 
